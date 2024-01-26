@@ -8,13 +8,20 @@ This is the URDF model for the Intel RealSense 430 camera, in its
 aluminum peripherial evaluation case.
 -->
 
-<robot name="sensor_d435" xmlns:xacro="http://ros.org/wiki/xacro">
+<!-- <robot name="sensor_d435" xmlns:xacro="http://ros.org/wiki/xacro"> -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
   <!-- Includes -->
+
   <xacro:include filename="$(find realsense2_description)/urdf/_materials.urdf.xacro" />
   <xacro:include filename="$(find realsense2_description)/urdf/_usb_plug.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.gazebo.xacro" />
 
   <xacro:macro name="sensor_d435" params="parent *origin name:=camera use_nominal_extrinsics:=false add_plug:=false use_mesh:=true">
     <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <!-- Realsense Gazebo Plugin -->
+    <xacro:gazebo_d435 camera_name="${name}" reference_link="${name}_link" topics_ns="${name}" depth_optical_frame="${name}_depth_optical_frame" color_optical_frame="${name}_color_optical_frame" infrared1_optical_frame="${name}_left_ir_optical_frame" infrared2_optical_frame="${name}_right_ir_optical_frame"/>
 
     <!-- The following values are approximate, and the camera node
      publishing TF values with actual calibrated camera extrinsic values -->
@@ -63,6 +70,7 @@ aluminum peripherial evaluation case.
           <origin xyz="${d435_zero_depth_to_glass + d435_glass_to_front} ${-d435_cam_depth_py} 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
           <geometry>
             <mesh filename="package://realsense2_description/meshes/d435.dae" />
+            <!-- <mesh filename="package://panther_gazebo/meshes/d435/d435.dae" /> -->
           </geometry>
         </xacro:if>
         <xacro:unless value="${use_mesh}">
@@ -103,7 +111,6 @@ aluminum peripherial evaluation case.
         <child link="${name}_depth_optical_frame" />
       </joint>
       <link name="${name}_depth_optical_frame"/>
-
       <!-- camera left IR joints and links -->
       <joint name="${name}_infra1_joint" type="fixed">
         <origin xyz="0 ${d435_cam_depth_to_infra1_offset} 0" rpy="0 0 0" />
@@ -155,5 +162,6 @@ aluminum peripherial evaluation case.
         <origin xyz="${d435_cam_mount_from_center_offset - 0.02095} ${-d435_cam_depth_py - 0.0353} 0" rpy="0 0 0"/>
       </xacro:usb_plug>
     </xacro:if>
+
   </xacro:macro>
 </robot>
