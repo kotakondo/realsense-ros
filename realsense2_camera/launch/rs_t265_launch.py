@@ -34,7 +34,7 @@ import pathlib
 sys.path.append(str(pathlib.Path(__file__).parent.absolute()))
 import rs_launch
 
-local_parameters = [
+t265_parameters = [
     {'name': 'device_type', 'default': 't265', 'description': 'choose device by type'},
     {'name': 'enable_pose', 'default': 'true', 'description': 'enable pose stream'},
     {'name': 'enable_fisheye1', 'default': 'true', 'description': 'enable fisheye1 stream'},
@@ -43,6 +43,7 @@ local_parameters = [
 ]
 
 def generate_launch_description():
+
     # Declare the namespace as a launch argument
     namespace_arg = DeclareLaunchArgument(
         'namespace',
@@ -56,16 +57,17 @@ def generate_launch_description():
     # Push the namespace for all nodes in this launch file
     namespace_push = PushRosNamespace(namespace)
 
+    # T265
     return LaunchDescription(
         [
             namespace_arg,
             namespace_push,
         ] +
-        rs_launch.declare_configurable_parameters(local_parameters) +
+        rs_launch.declare_configurable_parameters(t265_parameters) +
         [
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_launch.py']),
-                launch_arguments=rs_launch.set_configurable_parameters(local_parameters).items(),
+                launch_arguments=rs_launch.set_configurable_parameters(t265_parameters).items(),
             ),
         ]
     )
