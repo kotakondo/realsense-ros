@@ -1,0 +1,15 @@
+session_name: rr-cameras
+windows:
+  - window_name: main
+    layout: tiled
+    shell_command_before:
+      - source /home/swarm/ros2_ws/install/setup.bash # TODO: hard-coded path
+    panes:
+      # t265
+      - ros2 launch realsense2_camera rs_t265_launch.py
+      # l515
+      - ros2 launch realsense2_camera rs_l515_launch.py
+      # static publisher that connects these two cameras
+      - ros2 run tf2_ros static_transform_publisher 0 0 0 0.0 0.0 0.0 RR01t265_link RR01l515_link
+      # static publisher that connects RR01t265_link to map
+      # - ros2 run tf2_ros static_transform_publisher 0 0 0 0.0 0.0 0.0 map RR01t265_link
