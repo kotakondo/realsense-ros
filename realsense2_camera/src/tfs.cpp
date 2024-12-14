@@ -44,8 +44,8 @@ void BaseRealSenseNode::append_static_tf_msg(const rclcpp::Time& t,
 {
     geometry_msgs::msg::TransformStamped msg;
     msg.header.stamp = t;
-    msg.header.frame_id = from;
-    msg.child_frame_id = to;
+    msg.header.frame_id = std::string(_node.get_namespace()) + "/" + from;
+    msg.child_frame_id = std::string(_node.get_namespace()) + "/" + to;
 
     // Convert translation vector (x,y,z) (taken from camera extrinsics)
     // from optical cooridnates to ros coordinates

@@ -681,6 +681,14 @@ ros2 launch realsense2_camera rs_intra_process_demo_launch.py intra_process_comm
 </details>
 
 
+# Error Handling
+
+Could not find a package configuration file provided by "diagnostic_updater" with any of the following names: when building realsense-ros. TODO: move this to realsense-ros repo's README
+
+soltuion: sudo apt-get install ros-humble-diagnostic-updater
+
+
+
 [rolling-badge]: https://img.shields.io/badge/-ROLLING-orange?style=flat-square&logo=ros
 [rolling]: https://docs.ros.org/en/rolling/index.html
 [foxy-badge]: https://img.shields.io/badge/-foxy-orange?style=flat-square&logo=ros
