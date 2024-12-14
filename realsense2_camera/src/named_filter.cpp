@@ -273,7 +273,7 @@ void PointcloudFilter::Publish(rs2::points pc, const rclcpp::Time& t, const rs2:
         }
     }
     msg_pointcloud->header.stamp = t;
-    msg_pointcloud->header.frame_id = frame_id;
+    msg_pointcloud->header.frame_id = std::string(_node.get_namespace()) + "/" + frame_id;
     if (!_ordered_pc)
     {
         msg_pointcloud->width = valid_count;

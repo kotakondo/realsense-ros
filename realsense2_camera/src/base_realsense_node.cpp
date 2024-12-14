@@ -916,7 +916,9 @@ bool BaseRealSenseNode::fillROSImageMsgAndReturnStatus(
     cv_bridge::CvImage(std_msgs::msg::Header(), _rs_format_to_ros_format[stream_format], cv_matrix_image).toImageMsg(*img_msg_ptr);
 
     // Convert OpenCV Mat to ROS Image
-    img_msg_ptr->header.frame_id = OPTICAL_FRAME_ID(stream);
+
+    img_msg_ptr->header.frame_id = std::string(_node.get_namespace()) + "/" + OPTICAL_FRAME_ID(stream);
+
     img_msg_ptr->header.stamp = t;
     img_msg_ptr->height = height;
     img_msg_ptr->width = width;
