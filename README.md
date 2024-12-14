@@ -687,7 +687,9 @@ Could not find a package configuration file provided by "diagnostic_updater" wit
 
 soltuion: sudo apt-get install ros-humble-diagnostic-updater
 
+# Troubleshooting
 
+Use USB 3.0 port instead of USB C port for D435
 
 [rolling-badge]: https://img.shields.io/badge/-ROLLING-orange?style=flat-square&logo=ros
 [rolling]: https://docs.ros.org/en/rolling/index.html
